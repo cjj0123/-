@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>雅砻江水位</title>
+</head>
+<body>
+    <h1>雅砻江水位</h1>
+    <table>
+        <thead>
+          <tr>
+            {% for col in data.columns %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for index, row in data.iterrows() %}
+            <tr>
+              {% for col in data.columns %}
+                <td>{{ row[col] }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</body>
+</html>
