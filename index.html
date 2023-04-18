@@ -1,27 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>雅砻江水位</title>
+    <title>雅砻江水位查询</title>
 </head>
 <body>
-    <h1>雅砻江水位</h1>
-    <table>
-        <thead>
-          <tr>
-            {% for col in data.columns %}
-              <th>{{ col }}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-          {% for index, row in data.iterrows() %}
-            <tr>
-              {% for col in data.columns %}
-                <td>{{ row[col] }}</td>
-              {% endfor %}
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <h1>雅砻江水位查询</h1>
+    <form action="{{ url_for('index') }}" method="post">
+        <label for="date">日期</label>
+        <input type="date" id="date" name="date">
+        <input type="submit" value="查询">
+    </form>
+    <h1>雅砻江水位图</h1>
+    {% for image in images %}
+        <img src="{{url_for('static', filename='images/' + image)}}" alt="image">
+    {% endfor %}
+    
+    {% for sheet_name, sheet_data in data.items() %}
+        <h1>{{ sheet_name }}</h1>
+        <table>
+            <thead>
+                <tr>
+                    {% for col in sheet_data.columns %}
+                        <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for index, row in sheet_data.iterrows() %}
+                    <tr>
+                        {% for col in sheet_data.columns %}
+                            <td>{{ row[col] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
 </body>
 </html>
+
+The code above is the template for the index page. The template is rendered by the index() function in the views.py file. The index() function is called when the user visits the index page. The index() function returns the rendered template to the browser.
